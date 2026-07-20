@@ -21,8 +21,6 @@ jobs:
     needs: checkout
     permissions:
       contents: write
-    outputs:
-      tag: ${{ steps.tag.outputs.tag }}
 
     steps:
       - name: Checkout code
@@ -30,22 +28,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Create Git Tag
-        id: tag
+      - name: Create tag
         run: |
           TAG="v$(date +'%Y.%m.%d-%H%M%S')"
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git tag $TAG
           git push origin $TAG
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
-
-  realse-tag:
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.tag.outputs.tag }}
-          generate_release_notes: true
 
 
   deploy-by-im:
