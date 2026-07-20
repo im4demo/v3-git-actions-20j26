@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  deploy-by-im:
     runs-on: ubuntu-latest
 
     steps:
