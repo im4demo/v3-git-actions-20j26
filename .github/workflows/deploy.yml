@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
@@ -24,9 +25,7 @@ jobs:
             docker compose up -d --build
 
 # =============================================
-    # runs-on: ubuntu-latest
 
-    # steps:
     #   - name: Checkout code
     #     uses: actions/checkout@v4
 
