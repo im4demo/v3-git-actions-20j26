@@ -40,6 +40,7 @@ jobs:
           git push origin $TAG
           echo "tag=$TAG" >> $GITHUB_OUTPUT
 
+  realse-tag:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
