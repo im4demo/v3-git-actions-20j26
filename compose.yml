@@ -1,0 +1,10 @@
+services:
+  app:
+    image: v3-git-actions-20j26:1.0.0
+    container_name: im-app-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
