@@ -6,49 +6,28 @@ on:
       - main
 
 jobs:
-  deploy-by-im:
+  checkout:
+    name: Checkout Code
     runs-on: ubuntu-latest
 
     steps:
-      - name: im-Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: im-Deploy via SSH
+  deploy-by-im:
+    name: Deploy via SSH
+    runs-on: ubuntu-latest
+    needs: checkout
+
+    steps:
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.PRIVATE_KEY }}
-          # port: ${{ secrets.SSH_PORT }}
           port: 22
           script: |
             cd /home/${{ secrets.SSH_USERNAME }}/v3-git-actions-20j26
             git pull
             docker compose up -d --build
-
-# =============================================
-    #     with:
-    #       script: |
-    #         set -e
-
-    #         echo "Current user:"
-    #         whoami
-
-    #         echo "Current directory:"
-    #         pwd
-
-    #         cd /home/${{ secrets.SSH_USERNAME }}/git-actions-test
-
-    #         echo "Current directory after cd:"
-    #         pwd
-
-    #         echo "Repository status:"
-    #         git status
-
-    #         echo "Current branch:"
-    #         git branch
-
-    #         echo "Fetching origin..."
-    #         git fetch origin
-    #         git checkout ${{ github.ref_name }}
-    #         git pull origin ${{ github.ref_name }}
