@@ -10,34 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: im-Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy via SSH
+      - name: im-Deploy via SSH
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.PRIVATE_KEY }}
+          # port: ${{ secrets.SSH_PORT }}
+          port: 22
           script: |
             cd /home/${{ secrets.SSH_USERNAME }}/v3-git-actions-20j26
             git pull
             docker compose up -d --build
 
 # =============================================
-
-    #   - name: Checkout code
-    #     uses: actions/checkout@v4
-
-    #   - name: Deploy to OCI via SSH
-    #     uses: appleboy/ssh-action@v1.0.3
     #     with:
-    #       # host: ${{ secrets.SSH_HOST }}
-    #       host: 145.241.159.52
-    #       username: ${{ secrets.SSH_USERNAME }}
-    #       key: ${{ secrets.PRIVATE_KEY }}
-    #       # port: ${{ secrets.SSH_PORT }}
-    #       port: 22
     #       script: |
     #         set -e
 
@@ -62,5 +52,3 @@ jobs:
     #         git fetch origin
     #         git checkout ${{ github.ref_name }}
     #         git pull origin ${{ github.ref_name }}
-            
-    #         docker compose up -d --build
