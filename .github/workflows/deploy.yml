@@ -64,3 +64,4 @@ create-tag:
             cd /home/${{ secrets.SSH_USERNAME }}/v3-git-actions-20j26
             git pull
             docker compose up -d --build
+            
